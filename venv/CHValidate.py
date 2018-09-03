@@ -30,7 +30,6 @@ if stat == 200:
     graph.run("merge (o:Limited_Company {AV_ID:{AVID}}) on match set o.Registered_Name = {chrn}", parameters={"AVID":AVID,"chrn":crn})
     graph.run("match (o:Limited_Company {AV_ID:{AVID}}) create (a:UK_Structured_Address {Address_Line_1:{AD1}, Address_Line_2:{AD2}, Post_Town:{TOWN}, Postcode:{POSTCODE}}) CREATE (o)-[:HAS_REGISTERED_ADDRESS_OF]->(a)", parameters={"AVID":AVID, "AD1":regad1, "AD2":regad2, "TOWN":regadtown, "POSTCODE":regadpostcode})
     graph.run("match (o:Limited_Company{AV_ID:{AVID}}) match (c:Company_Registration_Number {Number:{chn}}) merge (o)-[rel:IS_IDENTIFIED_BY]->(c) on match set rel.Validated=true, rel.Validated_Date={td}",parameters={"AVID": AVID, "chn": chn, "td":td})
-    #graph.run("match (o:Limited_Company{AV_ID:{AVID}})-[r:IS_IDENTIFIED_BY]->(c:Company_Registration_Number {Number:{crn}}) merge [rel:IS_IDENTIFIED_BY {id:r.id] on match set r.Validated=true, r.Validated_Date='01/01/2001'", parameters={"AVID":AVID, "crn":crn})
 else:
     print('Not found at Companies House')
 
